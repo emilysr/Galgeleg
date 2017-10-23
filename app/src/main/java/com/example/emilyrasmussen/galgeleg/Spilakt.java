@@ -25,7 +25,15 @@ public class Spilakt extends Fragment implements View.OnClickListener {
     private Galgelogik logik;
     private int counter;
     private ImageView galge;
-    private int[] img = new int[6];
+    private Integer[] img = {
+            R.drawable.galge,
+            R.drawable.forkert1,
+            R.drawable.forkert2,
+            R.drawable.forkert3,
+            R.drawable.forkert4,
+            R.drawable.forkert5,
+            R.drawable.forkert6,
+    };
 
     public Spilakt(Galgelogik l) {
         logik = l;
@@ -76,7 +84,9 @@ public class Spilakt extends Fragment implements View.OnClickListener {
 
     private void opdaterSkærm() {
         info.setText("Gæt ordet: " + logik.getSynligtOrd());
+        if(logik.erSidsteBogstavKorrekt()==true)
         info.append("\n\nDu har " + logik.getAntalForkerteBogstaver() + " forkerte:" + logik.getBrugteBogstaver());
+
 
         if (logik.erSpilletVundet()) {
             info.append("\nDu har vundet");
