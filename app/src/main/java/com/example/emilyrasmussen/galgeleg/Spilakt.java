@@ -23,7 +23,6 @@ public class Spilakt extends Fragment implements View.OnClickListener {
     private Button spilKnap;
     private EditText et;
     private Galgelogik logik;
-    private int counter;
     private ImageView galge;
     private Integer[] img = {
             R.drawable.galge,
@@ -63,6 +62,10 @@ public class Spilakt extends Fragment implements View.OnClickListener {
         spilKnap.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_media_play, 0, 0, 0);
         tl.addView(spilKnap);
 
+        galge = new ImageView(getActivity());
+        galge.setImageResource(R.drawable.galge);
+        tl.addView(galge);
+
         spilKnap.setOnClickListener(this);
 
         return tl;
@@ -84,16 +87,20 @@ public class Spilakt extends Fragment implements View.OnClickListener {
 
     private void opdaterSkærm() {
         info.setText("Gæt ordet: " + logik.getSynligtOrd());
-        if(logik.erSidsteBogstavKorrekt()==true)
-        info.append("\n\nDu har " + logik.getAntalForkerteBogstaver() + " forkerte:" + logik.getBrugteBogstaver());
+        if(logik.erSidsteBogstavKorrekt()==true) {
+            info.append("\n\nDu har " + logik.getAntalForkerteBogstaver() + " forkerte:" + logik.getBrugteBogstaver());
 
-
+        } else if (logik.erSidsteBogstavKorrekt()==false) {
+            info.append("\n\nDu har " + logik.getAntalForkerteBogstaver() + " forkerte:" + logik.getBrugteBogstaver());
+            galge.setImageResource(img[logik.getAntalForkerteBogstaver()]);
+        }
         if (logik.erSpilletVundet()) {
             info.append("\nDu har vundet");
         }
         if (logik.erSpilletTabt()) {
             info.setText("Du har tabt, ordet var : " + logik.getOrdet());
         }
+
     }
 
 }
